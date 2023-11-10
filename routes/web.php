@@ -17,8 +17,22 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/home', function () {
-    return view('home');
+Route::get('/kategori', function () {
+    return view('kategori');
 });
 
-//create a page dashboard?
+Route::get('/gendre', function () {
+    return view('gendre');
+});
+
+Route::get('/negara', function () {
+    return view('negara');
+});
+
+Route::get('/login', function () {
+    return view('login');
+});
+
+Route::post('/admin', function () {
+    return view('admin');
+});
