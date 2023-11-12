@@ -1,4 +1,12 @@
-@extends('layouts.main')
+@extends('app.main')
+
+
 @section('body')
-    <h1>Selamat Datang!</h1>
+    @include('layouts.navbar')
+
+    @include('components.ads')
+
+    @include('layouts.about')
+
+    @include('components.card')
 @endsection
