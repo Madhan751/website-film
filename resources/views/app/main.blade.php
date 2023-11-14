@@ -13,8 +13,10 @@
 </head>
 
 <body>
-    @yield('body')
-    @yield('footer')
+    <div class="">
+        @yield('body')
+        @yield('footer')
+    </div>
 </body>
 
 </html>

@@ -1,6 +1,6 @@
-<div class="flex justify-center navbar bg-base-100 border-b-2 border-dark">
+<div class="flex justify-center px-14 navbar bg-slate-900 text-white border-b-2 border-dark">
     <div class="navbar-start">
-        <a class="normal-case font-sans pl-10 font-semibold text-xl">Zonefilmku.com</p>
+        <a class="normal-case font-sans font-semibold text-xl">Zonefilmku.com</p>
     </div>
 
     <div class="navbar-center">
@@ -9,11 +9,13 @@
 
         <div class="dropdown">
 
-            <label tabindex="0" class="btn normal-case m-1 border-0 bg-transparent">Genre<i class="gg-chevron-down"></i>
+            <label tabindex="0" class="btn normal-case m-1 border-0 text-white bg-transparent">Genre<i
+                    class="gg-chevron-down"></i>
             </label>
-            <ul tabindex="0" class="dropdown-content z-[1] menu p-2 w-52">
-                <li><a>Item 1</a></li>
-                <li><a>Item 2</a></li>
+            <ul tabindex="0" class="dropdown-content rounded-md bg-white border-1 z-[1] menu p-2 w-52">
+                <li><a>Action</a></li>
+                <hr class="border-1">
+                <li><a>Adventure</a></li>
             </ul>
         </div>
 
