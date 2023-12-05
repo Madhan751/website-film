@@ -37,7 +37,7 @@ class GenreController extends Controller
         Genre::create($validated);
 
       
-        return back()->with('success', 'BERHASIL TAMBAH!');
+        return back()->with('success', 'Berhasil Menambahkan Genre!');
 
     }
 
@@ -70,6 +70,9 @@ class GenreController extends Controller
      */
     public function destroy(Genre $genre)
     {
-        //
+        Genre::destroy($genre->id);
+
+        return back()->with('success', 'Berhasil Hapus Genre!');
+
     }
 }

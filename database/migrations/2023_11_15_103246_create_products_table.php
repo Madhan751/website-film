@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('link');
             $table->text('description');
             $table->text('country');
-            $table->text('image');
+            $table->text('image')->nullable();
             $table->timestamps();
         });
     }

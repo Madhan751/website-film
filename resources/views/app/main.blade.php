@@ -20,6 +20,8 @@
 <body class="bg-black relative">
     @yield('body')
     @yield('footer')
+    
+    <script src="../path/to/flowbite/dist/flowbite.min.js"></script>
 </body>
 
 </html>

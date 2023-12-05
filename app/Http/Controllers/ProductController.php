@@ -17,8 +17,8 @@ class ProductController extends Controller
     {
         
         return view('admin', [
-            'genres' => Genre::get(),
-            'products' => Product::with(['genres'])->get(),
+            'genres' => Genre::orderBy('name', 'asc')->get(),
+            'products' => Product::with(['genres'])->paginate(10),
 
         ]);
     }
@@ -35,7 +35,7 @@ class ProductController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
+    {     
 
         // dd($genrez);      
         $validated = $request->validate([
@@ -45,14 +45,17 @@ class ProductController extends Controller
             'genre' => 'required',
             'description' => 'required',
             'country' => 'required',
-            'image' => 'required',
+            'image' => 'nullable',
         ]);
+
+        if($request->file('image')){
+        $validated["image"] = $request->file('image')->store('media/image');
+        }
 
         $product = Product::create($validated);
         $product->genres()->attach($request->genre);
 
-      
-        return back();
+        return back()->with('success', 'Berhasil Menambahkan Film!');;
     }
 
     /**
@@ -72,15 +75,37 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        // dd($product->load('genres'));
+        return view('edit', [
+            'product' => $product->load('genres'),
+            'genres' => Genre::all(),
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateProductRequest $request, Product $product)
+    public function update(Request $request, Product $product)
     {
-        //
+
+        $validated = $request->validate([
+            'title' => 'required',
+            'release' => 'required',
+            'link' => 'required',
+            'description' => 'required',
+            'country' => 'required',
+            'image' => 'nullable',
+        ]);
+
+        if($request->file('image')){
+        $validated["image"] = $request->file('image')->store('media/image');
+        }
+
+        $product->genres()->sync($request->genre);
+        $product->generateSlug();
+        $product->update($validated);
+
+        return redirect('admin')->with('success', 'Berhasil Edit!');;
     }
 
     /**
@@ -88,6 +113,9 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+
+        Product::destroy($product->id);
+
+        return back()->with('sucess', 'Berhasil Hapus Genre!');
     }
 }

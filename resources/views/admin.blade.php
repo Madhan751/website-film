@@ -1,128 +1,72 @@
 @extends('app.main')
 @section('body')
-    <div class="mx-auto h-full bg-gray-800">
-        <div class="w-[100%] flex  h-full" id="sidebar">
-            <div></div>
-            <div class="flex flex-col bg-gray-800 h-screen  text-white gap-4 min-w-[40%]">
-                {{-- <a href="/" class="btn btn-ghost my-8  text-xl font-bold text-white">Zonefilmku</a> --}}
-                <button class=" btn btn-neutral h-4 font-sans text-center mx-8 mt-8 rounded-xl" id="buttonproduct">
-                    <h1 class="text-center">Product</h1>
-                </button>
-                <button class="btn btn-neutral h-4 font-sans text-center mx-8 rounded-xl" id="buttongenre">
-                    <h1 class="text-center">Genre</h1>
-                </button>
-                <a href="/" class="btn btn-outline btn-info h-4 font-sans text-center mx-8 rounded-xl">
-                    <h1 class="text-center">Kembali ke Halaman Home</h1>
-                </a>
-            </div>
-
-
-            {{-- <div class="w-80 h-20  bg-gray-200 mt-20 mx-auto rounded-lg group-hover/is-on:hidden" id="selamatdatang"> --}}
-            {{-- <div class="w-full" id="selamatadmin">
-                <h1 class="text-2xl text-white text-center mt-40 font-sans text-2xl">Selamat Datang, Admin!</h1>
-            </div> --}}
-            <div class="w-full bg-gray-200 border border-slate-500 shadow-md shadow-slate-900/50  m-8  rounded-lg"
-                id="formproduct">
-                <form action="/product" method="post" class="pt-14">
-                    @csrf
-                    <div class="grid grid-cols-2 mx-auto gap-4 justify-between   w-[40rem] ">
-                        <div>
-                            <label class="text-slate-700" for="title">Title :</label>
-                            <Input type="text" class="input input-bordered h-8 text-slate-900" name="title"
-                                id="title" placeholder="Judul Film">
-                        </div>
-                        <div>
-                            <label class="text-slate-700" for="link">Link :</label>
-                            <Input type="text" class="input input-bordered h-8" value="https://" name="link"
-                                id="link">
-                        </div>
-                        <div class="col-span-2 ">
-                            <p class="text-slate-700" for="description">Description :</p>
-                            <textarea type="text" name="description" placeholder="Deskripsi Singkat" class="textarea textarea-bordered w-full"
-                                id="description" rows="5"></textarea>
-                        </div>
-                        <div>
-                            <p class="text-slate-700" for="genre">Genre :</p>
-                            <select name="genre" class="select select-bordered  select-sm w-[12rem]" id="genre">
-                                <option value="" selected> - Pilih - </option>
-                                @foreach ($genres as $genre)
-                                    <option value="{{ $genre->id }}">{{ $genre->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div>
-                            <p class="text-slate-700" for="negara">Negara :</p>
-                            <select name="country" class="select select-bordered  select-sm w-[12rem]" id="country">
-                                <option value="" selected> - Pilih - </option>
-                                <option value="Indonesia">Indonesia</option>
-                                <option value="Malaysia">Malaysia</option>
-                                <option value="Korea">Korea</option>
-                                <option value="China">China</option>
-                                <option value="Jepang">Jepang</option>
-                                <option value="Barat">Barat</option>
-                                <option value="Thailand">Thailand</option>
-                            </select>
-                        </div>
-                        <div>
-                            <p class="text-slate-700" for="rilis">Rilis :</p>
-                            <input type="date" class="input input-bordered h-8 text-slate-900 w-[12rem]" name="release"
-                                id="rilis">
-                        </div>
-                        <div>
-                            <p class="text-slate-700" for="image">Image :</p>
-                            <input type="text" class="input input-bordered h-8 text-slate-900" placeholder="contoh.jpg"
-                                name="image" id="image">
-                        </div>
-                        <div class="col-span-2 ">
-                            <button type="submit" class="btn btn-neutral btn-active w-20 mx-auto ">Simpan</button>
-                        </div>
-                    </div>
-                </form>
-
-
-            </div>
-            <div class="w-full  bg-gray-200  m-8 hidden border border-slate-500 shadow-md shadow-slate-900/50 rounded-lg group-hover/is-on:hidden"
-                id="formgenre">
-                <form action="/genre" method="post" class="pt-14">
-                    @csrf
-                    <div class="flex flex-col mx-auto gap-2 w-[40rem] ">
-                        <label class="text-slate-700" for="title">Genre :</label>
-                        <Input type="text" class="input input-bordered h-8 text-slate-900" name="name" id="title">
-                        {{-- <input type="date" class="input input-bordered h-8 font-sans" name="rilis" id="rilis"> --}}
-                        <button type="submit" class="btn btn-neutral btn-active btn-sm w-20 self-end ">Simpan</button>
-                    </div>
-                </form>
-                @include('components.table')
-
-            </div>
+    <div class="w-[100%] mx-auto min-h-screen bg-slate-800 px-2 lg:px-8 py-4" id="sidebar">
+        <div class="grid grid-cols-3  text-white gap-4">
+            <a href="/" class="btn btn-outline btn-info h-4 font-sans text-center  rounded-xl w-full">
+                <span class="hidden lg:block"><i class="gg-log-out mr-4"></i></span>
+                <h1 class="text-center">Zonefilmku</h1>
+            </a>
+            <button class=" btn btn-neutral btn-active h-4 font-sans text-center  rounded-xl w-full" id="buttonproduct">
+                <h1 class="text-center">Product</h1>
+            </button>
+            <button class="btn btn-neutral h-4 font-sans text-center rounded-xl w-full" id="buttongenre">
+                <h1 class="text-center">Genre</h1>
+            </button>
         </div>
 
+        @if (session()->has('success'))
+            <div role="alert" class="alert alert-success my-4">
+                <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none"
+                    viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                {{-- <span>Berhasil Menambahkan!</span> --}}
+                <span>{{ Session::get('success') }}</span>
+            </div>
+        @endif
+
+
+        <div id="formproduct">
+            @include('components.form_product')
+        </div>
+        <div id="tableproduct">
+            @include('components.table_product')
+        </div>
+        <div id="formgenre" class="hidden">
+            @include('components.form_genre')
+        </div>
+        <div id="tablegenre" class="hidden">
+            @include('components.table_genre')
+        </div>
 
     </div>
 
-    <script>
-        // const sideBar = document.querySelector("#sidebar")
 
+    <script>
         const buttonGenre = document.querySelector("#buttongenre")
         const formGenre = document.querySelector("#formgenre")
 
         const buttonProduct = document.querySelector("#buttonproduct")
-        // const welcomeAdmin = document.querySelector("#selamatadmin")
         const formProduct = document.querySelector("#formproduct")
+        const tableProduct = document.querySelector("#tableproduct")
+        const tableGenre = document.querySelector("#tablegenre")
 
-        // sideBar.addEventListener("click", () => {
-        //     formProduct.classList.add("hidden")
-        //     formGenre.classList.add("hidden")
-        // })
         buttonProduct.addEventListener("click", () => {
-            formProduct.classList.remove("hidden")
-            // welcomeAdmin.classList.add("hidden")
+            buttonProduct.classList.add("btn-active")
+            buttonGenre.classList.remove("btn-active")
+            tableGenre.classList.add("hidden")
             formGenre.classList.add("hidden")
+            formProduct.classList.remove("hidden")
+            tableProduct.classList.remove("hidden")
         })
         buttonGenre.addEventListener("click", () => {
+            buttonGenre.classList.add("btn-active")
+            buttonProduct.classList.remove("btn-active")
             formProduct.classList.add("hidden")
-            // welcomeAdmin.classList.add("hidden")
+            tableProduct.classList.add("hidden")
             formGenre.classList.remove("hidden")
+            tableGenre.classList.remove("hidden")
         })
     </script>
 @endsection
